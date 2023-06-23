@@ -31,12 +31,6 @@ function login() {
       const token = result.token;
       localStorage.setItem("authToken", token);
 
-      // // Suppression de la balise <div> avec l'ID "filter"
-      // var filterDiv = document.getElementById("filter");
-      // if (filterDiv) {
-      //   filterDiv.remove();
-      // }
-
       window.location.href = "/FrontEnd/index.html";
     })
     .catch((error) => {

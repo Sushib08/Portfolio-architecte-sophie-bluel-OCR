@@ -305,3 +305,70 @@ button {
 }
 
 /*  */
+
+#error-message {
+  color: red;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Edit form */
+
+/*  edit-btn */
+
+.edit {
+  background-color: black;
+  height: 60px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.title-home,
+.nav-home {
+  margin-top: 38px;
+}
+
+.btn-edit {
+  border: none;
+  display: flex;
+  align-items: center;
+  margin-top: 13px;
+  gap: 8px;
+}
+
+.btn-edit img {
+  height: 20px;
+}
+
+.pub {
+  background-color: black;
+  color: white;
+}
+
+.btn-edit.publier {
+  color: black;
+  background: #ffffff;
+  border-radius: 60px;
+  width: 216px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-contain {
+  display: flex;
+  justify-content: center;
+  gap: 31px;
+  align-items: center;
+}
+
+.edit-contain .btn-edit {
+  margin-top: -28px;
+}
