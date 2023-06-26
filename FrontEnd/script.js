@@ -80,4 +80,34 @@ window.addEventListener("DOMContentLoaded", function () {
         filter.appendChild(categoryBtn);
       });
     });
+
+  // Fonction pour modifier la classe de la div #edit en fonction du token dans localStorage
+  function modifyEditClass() {
+    const authToken = localStorage.getItem("authToken");
+    const editDiv = document.getElementById("edit");
+    const filterDiv = document.getElementById("filter");
+    const btn1Div = document.getElementById("btn1");
+    const btnEdit = document.getElementById("btn-edit");
+
+    if (authToken !== null && authToken !== "") {
+      editDiv.classList.remove("hidden");
+      editDiv.classList.add("edit");
+      btn1Div.classList.remove("hidden");
+      btn1Div.classList.add("btn-edit");
+      btnEdit.classList.remove("hidden");
+      btnEdit.classList.add("btn-edit");
+      filterDiv.style.display = "none";
+    } else {
+      editDiv.classList.remove("edit");
+      editDiv.classList.add("hidden");
+      btn1Div.classList.remove("btn-edit");
+      btn1Div.classList.add("hidden");
+      btnEdit.classList.remove("btn-edit");
+      btnEdit.classList.add("hidden");
+      filterDiv.style.display = "block";
+    }
+  }
+
+  // Appeler la fonction pour modifier la classe de la div #edit
+  modifyEditClass();
 });

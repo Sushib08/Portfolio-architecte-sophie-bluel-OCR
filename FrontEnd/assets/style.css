@@ -277,7 +277,7 @@ footer nav ul {
 
 #filter {
   margin: 51px 0 50px 0;
-  display: flex;
+  display: flex !important;
   gap: 10px;
   justify-content: center;
   align-items: center;
