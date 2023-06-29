@@ -381,6 +381,10 @@ button {
 
 /****** Modal  **********/
 
+.edit-img {
+  cursor: pointer;
+}
+
 a {
   text-decoration: none;
 }
@@ -487,22 +491,24 @@ h3 {
   color: #ffffff;
   background-color: #000000;
   padding: 4px;
+  border-radius: 2px;
+  cursor: pointer;
 }
 
-.modal-wrapper #gallery-modal figure {
+.modal-wrapper #gallery-modal .image-container {
   position: relative;
 }
 
-.modal-wrapper #gallery-modal figure .trash-icon {
+.modal-wrapper #gallery-modal .trash-icon {
   position: absolute;
   top: 5px;
   right: 5px;
 }
 
-.modal-wrapper #gallery-modal figure:first-child .arrows-icon {
+.modal-wrapper #gallery-modal .arrows-icon {
   position: absolute;
   top: 5px;
-  left: 5px;
+  right: 25px;
 }
 
 .arrows-icon {
@@ -510,5 +516,7 @@ h3 {
   color: #ffffff;
   background-color: #000000;
   padding: 4px;
-  margin-left: 22px;
+  margin-right: 5px;
+  border-radius: 2px;
+  cursor: pointer;
 }

@@ -21,7 +21,6 @@ window.addEventListener("DOMContentLoaded", function () {
         projectGallery.appendChild(workElement);
       });
 
-      // Appeler la fonction pour afficher les images dans la modal
       displayModalImages();
     })
     .catch((error) => {
@@ -84,24 +83,39 @@ window.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-  // Fonction pour afficher les images dans la modal
   function displayModalImages() {
     const galleryElements = document.querySelectorAll("#gallery figure");
     const galleryModal = document.getElementById("gallery-modal");
 
-    // Supprimer les éventuels éléments précédents de la modal
     galleryModal.innerHTML = "";
-
-    // Parcourir les éléments de la galerie
-    galleryElements.forEach((galleryElement) => {
+    galleryElements.forEach((galleryElement, index) => {
       const imageElement = document.createElement("img");
       const imageUrl = galleryElement.querySelector("img").src;
+      const deleteIcon = document.createElement("i");
+      const arrowIcon = document.createElement("i");
+      const editText = document.createElement("div");
+
+      deleteIcon.className = "fas fa-trash-alt trash-icon";
+      editText.textContent = "éditer";
+      editText.classList.add("edit-img");
+
       imageElement.src = imageUrl;
-      galleryModal.appendChild(imageElement);
+
+      const imageContainer = document.createElement("div");
+      imageContainer.classList.add("image-container");
+      imageContainer.appendChild(imageElement);
+      imageContainer.appendChild(deleteIcon);
+
+      if (index === 0) {
+        arrowIcon.className = "fas fa-arrows-up-down-left-right arrows-icon";
+        imageContainer.appendChild(arrowIcon);
+      }
+
+      imageContainer.appendChild(editText);
+      galleryModal.appendChild(imageContainer);
     });
   }
 
-  // Fonction pour modifier la classe de la div #edit en fonction du token dans localStorage
   function modifyEditClass() {
     const authToken = localStorage.getItem("authToken");
     const editDiv = document.getElementById("edit");
@@ -128,7 +142,6 @@ window.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Appeler la fonction pour modifier la classe de la div #edit
   modifyEditClass();
 
   function openModalClass() {
@@ -145,8 +158,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
   const btnEdit = document.getElementById("btn-edit");
   const closeIcon = document.querySelector("#modal1 .close");
-
-  // Ajouter un gestionnaire d'événement au clic sur le bouton
   btnEdit.addEventListener("click", openModalClass);
   closeIcon.addEventListener("click", closeModal);
 });
