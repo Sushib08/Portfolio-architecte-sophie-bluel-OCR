@@ -277,7 +277,7 @@ footer nav ul {
 
 #filter {
   margin: 51px 0 50px 0;
-  display: flex !important;
+  display: flex;
   gap: 10px;
   justify-content: center;
   align-items: center;
@@ -343,6 +343,12 @@ button {
   gap: 8px;
 }
 
+.pub,
+#btn1,
+#btn-edit {
+  cursor: pointer;
+}
+
 .btn-edit img {
   height: 20px;
 }
@@ -371,4 +377,138 @@ button {
 
 .edit-contain .btn-edit {
   margin-top: -28px;
+}
+
+/****** Modal  **********/
+
+a {
+  text-decoration: none;
+}
+
+.modal-wrapper {
+  position: fixed;
+  width: 630px;
+  height: 750px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  border: solid 2px black;
+}
+
+h3 {
+  position: absolute;
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 30px;
+  text-align: center;
+  margin-top: 60px;
+  color: #000000;
+}
+
+.close {
+  color: #000000;
+  position: absolute;
+  margin-top: 32px;
+  margin-left: 582px;
+  cursor: pointer;
+}
+
+.modal-wrapper #gallery-modal {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 7.49px;
+  grid-row-gap: 7.49px;
+  margin-left: 105px;
+  margin-right: 105px;
+  margin-top: 136px;
+  margin-bottom: 229px;
+}
+
+.modal-wrapper #gallery-modal img {
+  width: 78px;
+  height: 104px;
+  object-fit: cover;
+}
+
+.line {
+  margin-top: 569px;
+  position: absolute;
+  width: 420px;
+  height: 0px;
+  border: 1px solid #b3b3b3;
+}
+
+.add-img {
+  position: absolute;
+  width: 237px;
+  height: 36px;
+  background: #1d6154;
+  font-family: "Syne";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #ffffff;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 617px;
+}
+
+.remove-gallery {
+  position: absolute;
+  width: 230px;
+  height: 17px;
+  font-family: "Syne";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #d65353;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 680px;
+  border: none;
+}
+
+.modal-wrapper #gallery-modal figcaption {
+  cursor: pointer;
+}
+
+.trash-icon {
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #000000;
+  padding: 4px;
+}
+
+.modal-wrapper #gallery-modal figure {
+  position: relative;
+}
+
+.modal-wrapper #gallery-modal figure .trash-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.modal-wrapper #gallery-modal figure:first-child .arrows-icon {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.arrows-icon {
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #000000;
+  padding: 4px;
+  margin-left: 22px;
 }

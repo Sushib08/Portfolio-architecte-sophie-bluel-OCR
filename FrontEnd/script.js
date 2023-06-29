@@ -20,6 +20,9 @@ window.addEventListener("DOMContentLoaded", function () {
         workElement.appendChild(titleElement);
         projectGallery.appendChild(workElement);
       });
+
+      // Appeler la fonction pour afficher les images dans la modal
+      displayModalImages();
     })
     .catch((error) => {
       console.error("Erreur lors de la récupération des travaux:", error);
@@ -81,6 +84,23 @@ window.addEventListener("DOMContentLoaded", function () {
       });
     });
 
+  // Fonction pour afficher les images dans la modal
+  function displayModalImages() {
+    const galleryElements = document.querySelectorAll("#gallery figure");
+    const galleryModal = document.getElementById("gallery-modal");
+
+    // Supprimer les éventuels éléments précédents de la modal
+    galleryModal.innerHTML = "";
+
+    // Parcourir les éléments de la galerie
+    galleryElements.forEach((galleryElement) => {
+      const imageElement = document.createElement("img");
+      const imageUrl = galleryElement.querySelector("img").src;
+      imageElement.src = imageUrl;
+      galleryModal.appendChild(imageElement);
+    });
+  }
+
   // Fonction pour modifier la classe de la div #edit en fonction du token dans localStorage
   function modifyEditClass() {
     const authToken = localStorage.getItem("authToken");
@@ -110,4 +130,23 @@ window.addEventListener("DOMContentLoaded", function () {
 
   // Appeler la fonction pour modifier la classe de la div #edit
   modifyEditClass();
+
+  function openModalClass() {
+    const modal = document.getElementById("modal1");
+    modal.classList.remove("hidden");
+    modal.classList.add("modal-wrapper");
+  }
+
+  function closeModal() {
+    const modal = document.getElementById("modal1");
+    modal.classList.remove("modal-wrapper");
+    modal.classList.add("hidden");
+  }
+
+  const btnEdit = document.getElementById("btn-edit");
+  const closeIcon = document.querySelector("#modal1 .close");
+
+  // Ajouter un gestionnaire d'événement au clic sur le bouton
+  btnEdit.addEventListener("click", openModalClass);
+  closeIcon.addEventListener("click", closeModal);
 });
