@@ -130,8 +130,43 @@
               <h3>Galerie photo</h3>
               <div class="gallery-modal" id="gallery-modal"></div>
               <div class="line"></div>
-              <button class="add-img">Ajouter une photo</button>
+              <a href="#modal2"
+                ><button id="btn-add-img" class="add-img">
+                  Ajouter une photo
+                </button></a
+              >
               <button class="remove-gallery">Supprimer la galerie</button>
+            </div>
+          </aside>
+          <aside id="modal2" class="hidden">
+            <div class="modal-wrapper">
+              <div class="btn-modal">
+                <i class="fa-solid fa-arrow-left-long arrow-left"></i>
+                <i class="fa-solid fa-xmark close"></i>
+              </div>
+              <h3>Ajout photo</h3>
+              <div class="frame-addImg">
+                <img
+                  src="../FrontEnd/assets/icons/picture-svgrepo-com 1.svg"
+                  alt="img"
+                />
+                <button class="btn-addImg">+ Ajouter photo</button>
+                <p class="format">jpg, png : 4mo max</p>
+              </div>
+              <form class="form2">
+                <div class="form-group">
+                  <label for="inputTitre">Titre</label>
+                  <input type="text" id="inputTitre" name="titre" />
+                </div>
+                <div class="form-group">
+                  <label for="selectCategorie">Catégorie</label>
+                  <select id="selectCategorie" name="categorie">
+                    <option value="Bar & Restaurant">Bar & Restaurant</option>
+                  </select>
+                  <button class="validate">Valider</button>
+                </div>
+              </form>
+              <div class="line"></div>
             </div>
           </aside>
         </div>

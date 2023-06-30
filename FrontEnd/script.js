@@ -362,27 +362,46 @@ window.addEventListener("DOMContentLoaded", function () {
 
   modifyEditClass();
 
-  function openModalClass() {
-    const modal = document.getElementById("modal1");
+  function openModal(modalId) {
+    const modal = document.getElementById(modalId);
     modal.classList.remove("hidden");
     modal.classList.add("modal-wrapper");
   }
 
-  function closeModal() {
-    const modal = document.getElementById("modal1");
+  function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
     modal.classList.remove("modal-wrapper");
     modal.classList.add("hidden");
   }
 
   const btnEdit = document.getElementById("btn-edit");
+  btnEdit.addEventListener("click", () => openModal("modal1"));
   const closeIcon = document.querySelector("#modal1 .close");
-  btnEdit.addEventListener("click", openModalClass);
-  closeIcon.addEventListener("click", closeModal);
+  closeIcon.addEventListener("click", () => closeModal("modal1"));
 
-  window.addEventListener("mousedown", function (event) {
-    const modal = document.getElementById("modal1");
-    if (!modal.contains(event.target) && !modal.classList.contains("hidden")) {
-      closeModal();
-    }
+  const btnAddImg = document.getElementById("btn-add-img");
+  btnAddImg.addEventListener("click", () => openModal("modal2"));
+  const closeIcon2 = document.querySelector("#modal2 .close");
+  closeIcon2.addEventListener("click", () => closeModal("modal2"));
+
+  const arrowLeftIcon = document.querySelector("#modal2 .arrow-left");
+  arrowLeftIcon.addEventListener("click", () => {
+    closeModal("modal2");
+    openModal("modal1");
   });
+
+  function closeModalOnClickOutside(event) {
+    const modals = ["modal1", "modal2"];
+    modals.forEach((modalId) => {
+      const modal = document.getElementById(modalId);
+      if (
+        !modal.contains(event.target) &&
+        !modal.classList.contains("hidden")
+      ) {
+        closeModal(modalId);
+      }
+    });
+  }
+
+  window.addEventListener("mousedown", closeModalOnClickOutside);
 });

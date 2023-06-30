@@ -463,6 +463,7 @@ h3 {
   left: 50%;
   transform: translateX(-50%);
   top: 617px;
+  cursor: pointer;
 }
 
 .remove-gallery {
@@ -519,4 +520,143 @@ h3 {
   margin-right: 5px;
   border-radius: 2px;
   cursor: pointer;
+}
+
+/* Modal2 */
+
+.btn-modal {
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-modal .close {
+  margin-left: 1020px;
+}
+
+.arrow-left {
+  color: #000000;
+  position: absolute;
+  margin-top: 32px;
+  margin-right: 150px;
+  cursor: pointer;
+}
+
+.frame-addImg {
+  background-color: #e8f1f6;
+  border: solid 1px #e8f1f6;
+  width: 420px;
+  height: 169px;
+  border-radius: 10px;
+  position: absolute;
+  margin-top: 210px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.frame-addImg img {
+  width: 58px;
+  height: 58px;
+  margin: 22px auto 15px auto;
+}
+
+.btn-addImg {
+  border-radius: 50px;
+  background: #cbd6dc;
+  width: 170px;
+  height: 36px;
+  margin: 0 auto 7px auto;
+  border: solid 1px #cbd6dc;
+  color: #306685;
+  text-align: center;
+  font-size: 14px;
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  cursor: pointer;
+}
+
+.format {
+  color: #444;
+  text-align: center;
+  font-size: 10px;
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.form2 {
+  margin-top: 330px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group input,
+select {
+  margin-bottom: 21px;
+  width: 420px;
+  height: 51px;
+  background: #fff;
+  box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+  border: none;
+}
+
+.form-group label {
+  color: #3d3d3d;
+  font-size: 14px;
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.form-group input[type="text"] {
+  color: #444;
+  font-size: 14px;
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-left: 16px;
+}
+
+.form-group select {
+  color: #444;
+  font-size: 14px;
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-left: 16px;
+}
+
+.validate {
+  margin-top: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 237px;
+  height: 36px;
+  border-radius: 60px;
+  background: #a7a7a7;
+  color: white;
+  border: #a7a7a7 solid 1px;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  font-family: "Syne";
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.validate:hover {
+  background: #1d6154;
 }
