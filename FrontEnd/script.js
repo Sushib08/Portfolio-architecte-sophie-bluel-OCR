@@ -378,4 +378,11 @@ window.addEventListener("DOMContentLoaded", function () {
   const closeIcon = document.querySelector("#modal1 .close");
   btnEdit.addEventListener("click", openModalClass);
   closeIcon.addEventListener("click", closeModal);
+
+  window.addEventListener("mousedown", function (event) {
+    const modal = document.getElementById("modal1");
+    if (!modal.contains(event.target) && !modal.classList.contains("hidden")) {
+      closeModal();
+    }
+  });
 });
