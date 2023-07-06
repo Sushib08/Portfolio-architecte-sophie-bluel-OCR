@@ -660,3 +660,15 @@ select {
 .validate:hover {
   background: #1d6154;
 }
+
+.selectedImg {
+  width: 129px !important;
+  height: 168px !important;
+  margin: 0 auto 0 auto !important;
+}
+
+.error-message {
+  display: none;
+  text-align: center;
+  margin-top: 10px;
+}

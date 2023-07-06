@@ -241,4 +241,101 @@ window.addEventListener("DOMContentLoaded", function () {
   }
 
   window.addEventListener("mousedown", closeModalOnClickOutside);
+
+  const AddImg = document.querySelector(".btn-addImg");
+
+  AddImg.addEventListener("click", function () {
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "image/jpeg, image/png";
+    fileInput.style.display = "none";
+    fileInput.addEventListener("change", handleFileSelection);
+    document.body.appendChild(fileInput);
+
+    fileInput.click();
+  });
+
+  function handleFileSelection(event) {
+    const fileInput = event.target;
+    const file = fileInput.files[0];
+
+    if (!file) {
+      console.log("Aucun fichier sélectionné.");
+      return;
+    }
+
+    const maxSize = 4 * 1024 * 1024; // 4 Mo en octets
+    if (file.size > maxSize) {
+      console.log("La taille du fichier dépasse 4 Mo.");
+      return;
+    }
+    const allowedTypes = ["image/jpeg", "image/png"];
+    if (!allowedTypes.includes(file.type)) {
+      console.log("Type de fichier non pris en charge.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function () {
+      const frameAddImg = document.querySelector(".frame-addImg");
+      frameAddImg.innerHTML = "";
+
+      const imageElement = document.createElement("img");
+      imageElement.src = reader.result;
+      imageElement.classList.add("selectedImg");
+      frameAddImg.appendChild(imageElement);
+    };
+    reader.readAsDataURL(file);
+
+    const btnAddImg = document.querySelector(".btn-addImg");
+    const formatParagraph = document.querySelector(".format");
+    btnAddImg.style.display = "none";
+    formatParagraph.style.display = "none";
+  }
+
+  function populateCategoryOptions() {
+    const selectCategorie = document.getElementById("selectCategorie");
+    fetch("http://localhost:5678/api/categories")
+      .then((response) => response.json())
+      .then((data) => {
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "";
+        selectCategorie.appendChild(defaultOption);
+
+        data.forEach((category) => {
+          const categoryId = category.id;
+          const categoryName = category.name;
+
+          const option = document.createElement("option");
+          option.value = categoryId;
+          option.textContent = categoryName;
+
+          selectCategorie.appendChild(option);
+        });
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des catégories :", error);
+      });
+  }
+
+  populateCategoryOptions();
+
+  const validateButton = document.querySelector(".validate");
+  const errorMessage = document.getElementById("error-message");
+
+  validateButton.addEventListener("click", function (event) {
+    event.preventDefault(); // Empêcher le rechargement de la page par défaut
+
+    const selectedImg = document.querySelector(".selectedImg");
+    const inputTitre = document.getElementById("inputTitre");
+    const selectCategorie = document.getElementById("selectCategorie");
+
+    if (!selectedImg || !inputTitre.value || selectCategorie.value === "") {
+      errorMessage.style.display = "block";
+    } else {
+      errorMessage.style.display = "none";
+      console.log("formulaire envoyé avec succès");
+    }
+  });
 });

@@ -151,9 +151,7 @@
                   src="../FrontEnd/assets/icons/picture-svgrepo-com 1.svg"
                   alt="img"
                 />
-                <button class="btn-addImg" onclick="addPhoto()">
-                  + Ajouter photo
-                </button>
+                <button class="btn-addImg">+ Ajouter photo</button>
                 <p class="format">jpg, png : 4mo max</p>
               </div>
               <form class="form2">
@@ -163,10 +161,11 @@
                 </div>
                 <div class="form-group">
                   <label for="selectCategorie">Catégorie</label>
-                  <select id="selectCategorie" name="categorie">
-                    <option value="Bar & Restaurant">Bar & Restaurant</option>
-                  </select>
+                  <select id="selectCategorie" name="categorie"></select>
                   <button class="validate">Valider</button>
+                  <p id="error-message" class="error-message">
+                    Le formulaire n'est pas correctement rempli
+                  </p>
                 </div>
               </form>
               <div class="line"></div>
