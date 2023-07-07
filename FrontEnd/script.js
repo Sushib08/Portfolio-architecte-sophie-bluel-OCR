@@ -209,6 +209,9 @@ window.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById(modalId);
     modal.classList.remove("modal-wrapper");
     modal.classList.add("hidden");
+    if (modalId === "modal2") {
+      resetModal2();
+    }
   }
 
   const btnEdit = document.getElementById("btn-edit");
@@ -224,8 +227,33 @@ window.addEventListener("DOMContentLoaded", function () {
   const arrowLeftIcon = document.querySelector("#modal2 .arrow-left");
   arrowLeftIcon.addEventListener("click", () => {
     closeModal("modal2");
+    resetModal2();
     openModal("modal1");
   });
+
+  function resetModal2() {
+    const frameAddImg = document.querySelector(".frame-addImg");
+    frameAddImg.innerHTML = `
+      <img src="../FrontEnd/assets/icons/picture-svgrepo-com 1.svg" alt="img" />
+      <button class="btn-addImg">+ Ajouter photo</button>
+      <p class="format">jpg, png : 4mo max</p>
+    `;
+
+    const btnAddImg = document.querySelector(".btn-addImg");
+    const formatParagraph = document.querySelector(".format");
+
+    btnAddImg.style.display = "block";
+    formatParagraph.style.display = "block";
+
+    const inputTitre = document.getElementById("inputTitre");
+    const selectCategorie = document.getElementById("selectCategorie");
+
+    inputTitre.value = "";
+    selectCategorie.value = "";
+
+    const errorMessage = document.getElementById("error-message");
+    errorMessage.style.display = "none";
+  }
 
   function closeModalOnClickOutside(event) {
     const modals = ["modal1", "modal2"];
@@ -236,6 +264,9 @@ window.addEventListener("DOMContentLoaded", function () {
         !modal.classList.contains("hidden")
       ) {
         closeModal(modalId);
+        if (modalId === "modal2") {
+          resetModal2();
+        }
       }
     });
   }
@@ -244,15 +275,17 @@ window.addEventListener("DOMContentLoaded", function () {
 
   const AddImg = document.querySelector(".btn-addImg");
 
-  AddImg.addEventListener("click", function () {
-    const fileInput = document.createElement("input");
-    fileInput.type = "file";
-    fileInput.accept = "image/jpeg, image/png";
-    fileInput.style.display = "none";
-    fileInput.addEventListener("change", handleFileSelection);
-    document.body.appendChild(fileInput);
+  document.body.addEventListener("click", function (event) {
+    if (event.target.matches(".btn-addImg")) {
+      const fileInput = document.createElement("input");
+      fileInput.type = "file";
+      fileInput.accept = "image/jpeg, image/png";
+      fileInput.style.display = "none";
+      fileInput.addEventListener("change", handleFileSelection);
+      document.body.appendChild(fileInput);
 
-    fileInput.click();
+      fileInput.click();
+    }
   });
 
   function handleFileSelection(event) {
