@@ -273,8 +273,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
   window.addEventListener("mousedown", closeModalOnClickOutside);
 
-  const AddImg = document.querySelector(".btn-addImg");
-
   document.body.addEventListener("click", function (event) {
     if (event.target.matches(".btn-addImg")) {
       const fileInput = document.createElement("input");
@@ -282,6 +280,8 @@ window.addEventListener("DOMContentLoaded", function () {
       fileInput.accept = "image/jpeg, image/png";
       fileInput.style.display = "none";
       fileInput.addEventListener("change", handleFileSelection);
+      fileInput.classList.add("fileInput");
+
       document.body.appendChild(fileInput);
 
       fileInput.click();
@@ -360,15 +360,55 @@ window.addEventListener("DOMContentLoaded", function () {
   validateButton.addEventListener("click", function (event) {
     event.preventDefault(); // Empêcher le rechargement de la page par défaut
 
-    const selectedImg = document.querySelector(".selectedImg");
+    const fileInput = document.querySelector(".fileInput");
     const inputTitre = document.getElementById("inputTitre");
     const selectCategorie = document.getElementById("selectCategorie");
 
-    if (!selectedImg || !inputTitre.value || selectCategorie.value === "") {
+    if (!fileInput || !inputTitre.value || selectCategorie.value === "") {
       errorMessage.style.display = "block";
     } else {
       errorMessage.style.display = "none";
-      console.log("formulaire envoyé avec succès");
+
+      const formData = new FormData();
+      formData.append("image", fileInput.files[0]);
+      formData.append("title", inputTitre.value);
+      formData.append("category", selectCategorie.value);
+
+      const token = localStorage.getItem("authToken");
+
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      };
+
+      fetch("http://localhost:5678/api/works", requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          const projectGallery = document.getElementById("gallery");
+
+          const workElement = document.createElement("figure");
+          workElement.setAttribute("data-category", data.category.id);
+          workElement.setAttribute("data-id", data.id);
+
+          const imageElement = document.createElement("img");
+          imageElement.src = data.imageUrl;
+
+          const titleElement = document.createElement("figcaption");
+          titleElement.textContent = data.title;
+
+          workElement.appendChild(imageElement);
+          workElement.appendChild(titleElement);
+          projectGallery.appendChild(workElement);
+
+          closeModal("modal2");
+          resetModal2();
+        })
+        .catch((error) => {
+          console.error("Erreur lors de l'envoi du formulaire :", error);
+        });
     }
   });
 });
