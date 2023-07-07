@@ -87,7 +87,7 @@ window.addEventListener("DOMContentLoaded", function () {
     });
 
   function deleteImage(id) {
-    const token = localStorage.getItem("authToken");
+    const token = sessionStorage.getItem("authToken");
 
     const requestOptions = {
       method: "DELETE",
@@ -172,7 +172,7 @@ window.addEventListener("DOMContentLoaded", function () {
   }
 
   function modifyEditClass() {
-    const authToken = localStorage.getItem("authToken");
+    const authToken = sessionStorage.getItem("authToken");
     const editDiv = document.getElementById("edit");
     const filterDiv = document.getElementById("filter");
     const btn1Div = document.getElementById("btn1");
@@ -374,7 +374,7 @@ window.addEventListener("DOMContentLoaded", function () {
       formData.append("title", inputTitre.value);
       formData.append("category", selectCategorie.value);
 
-      const token = localStorage.getItem("authToken");
+      const token = sessionStorage.getItem("authToken");
 
       const requestOptions = {
         method: "POST",

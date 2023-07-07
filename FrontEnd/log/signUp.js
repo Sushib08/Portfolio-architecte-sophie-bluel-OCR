@@ -29,7 +29,7 @@ function login() {
     })
     .then((result) => {
       const token = result.token;
-      localStorage.setItem("authToken", token);
+      sessionStorage.setItem("authToken", token);
 
       window.location.href = "/FrontEnd/index.html";
     })
