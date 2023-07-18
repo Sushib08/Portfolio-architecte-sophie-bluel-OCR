@@ -49,8 +49,8 @@
       </h1>
       <nav class="nav-home">
         <ul>
-          <li>projets</li>
-          <li>contact</li>
+          <a href="#gallery"><li>projets</li></a>
+          <a href="#contact"><li>contact</li></a>
           <li><a href="../FrontEnd/log/log.html">login</a></li>
           <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
         </ul>
@@ -172,11 +172,11 @@
             </div>
           </aside>
         </div>
-        <div id="filter"></div>
+        <div id="filter" class="flex-important"></div>
         <div id="gallery"></div>
       </section>
       <section class="form">
-        <h2>Contact</h2>
+        <h2 id="contact">Contact</h2>
         <p>Vous avez un projet ? Discutons-en !</p>
         <form action="#" method="post">
           <label for="name">Nom</label>

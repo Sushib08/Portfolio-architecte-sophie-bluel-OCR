@@ -185,7 +185,8 @@ window.addEventListener("DOMContentLoaded", function () {
       btn1Div.classList.add("btn-edit");
       btnEdit.classList.remove("hidden");
       btnEdit.classList.add("btn-edit");
-      filterDiv.style.display = "none";
+      filterDiv.classList.remove("flex-important");
+      filterDiv.classList.add("hidden");
     } else {
       editDiv.classList.remove("edit");
       editDiv.classList.add("hidden");
@@ -193,7 +194,7 @@ window.addEventListener("DOMContentLoaded", function () {
       btn1Div.classList.add("hidden");
       btnEdit.classList.remove("btn-edit");
       btnEdit.classList.add("hidden");
-      filterDiv.style.display = "block";
+      filterDiv.classList.add("flex-important");
     }
   }
 
