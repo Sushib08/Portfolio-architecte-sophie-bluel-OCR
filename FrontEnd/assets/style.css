@@ -349,6 +349,12 @@ button {
   gap: 8px;
 }
 
+.btn-edit1 {
+  border: none;
+  margin-top: 13px;
+  margin-left: 7%;
+}
+
 .pub,
 #btn1,
 #btn-edit {

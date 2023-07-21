@@ -182,7 +182,7 @@ window.addEventListener("DOMContentLoaded", function () {
       editDiv.classList.remove("hidden");
       editDiv.classList.add("edit");
       btn1Div.classList.remove("hidden");
-      btn1Div.classList.add("btn-edit");
+      btn1Div.classList.add("btn-edit1");
       btnEdit.classList.remove("hidden");
       btnEdit.classList.add("btn-edit");
       filterDiv.classList.remove("flex-important");
@@ -190,7 +190,7 @@ window.addEventListener("DOMContentLoaded", function () {
     } else {
       editDiv.classList.remove("edit");
       editDiv.classList.add("hidden");
-      btn1Div.classList.remove("btn-edit");
+      btn1Div.classList.remove("btn-edit1");
       btn1Div.classList.add("hidden");
       btnEdit.classList.remove("btn-edit");
       btnEdit.classList.add("hidden");
@@ -200,16 +200,24 @@ window.addEventListener("DOMContentLoaded", function () {
 
   modifyEditClass();
 
+  const modalStates = {
+    modal1: false,
+    modal2: false,
+    // Ajoutez ici d'autres modals si nécessaire
+  };
+
   function openModal(modalId) {
     const modal = document.getElementById(modalId);
     modal.classList.remove("hidden");
     modal.classList.add("modal-wrapper");
+    modalStates[modalId] = true;
   }
 
   function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     modal.classList.remove("modal-wrapper");
     modal.classList.add("hidden");
+    modalStates[modalId] = false;
     if (modalId === "modal2") {
       resetModal2();
     }
