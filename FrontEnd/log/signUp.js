@@ -31,7 +31,7 @@ function login() {
       const token = result.token;
       sessionStorage.setItem("authToken", token);
 
-      window.location.href = "/FrontEnd/index.html";
+      window.location.href = "../../Frontend/index.html";
     })
     .catch((error) => {
       console.error("Erreur lors de la connexion:", error.message);

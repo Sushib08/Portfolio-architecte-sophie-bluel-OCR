@@ -1,4 +1,5 @@
 window.addEventListener("DOMContentLoaded", function () {
+  const currentDomain = window.location.origin;
   fetch("http://localhost:5678/api/works")
     .then((response) => response.json())
     .then((data) => {
@@ -97,28 +98,32 @@ window.addEventListener("DOMContentLoaded", function () {
     };
 
     fetch(`http://localhost:5678/api/works/${id}`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        // Supprimer l'image correspondante dans #gallery-modal
-        const galleryModal = document.getElementById("gallery-modal");
-        const imageContainers =
-          galleryModal.querySelectorAll(".image-container");
-        imageContainers.forEach((container) => {
-          const imageId = container.getAttribute("data-id");
-          if (imageId === id) {
-            container.remove();
-          }
-        });
+      .then((response) => {
+        if (response.status === 204) {
+          // Supprimer l'image correspondante dans #gallery-modal
+          const galleryModal = document.getElementById("gallery-modal");
+          const imageContainers =
+            galleryModal.querySelectorAll(".image-container");
+          imageContainers.forEach((container) => {
+            const imageId = container.getAttribute("data-id");
+            if (imageId === id) {
+              container.remove();
+            }
+          });
 
-        // Supprimer l'image correspondante dans #gallery
-        const gallery = document.getElementById("gallery");
-        const galleryFigures = gallery.querySelectorAll("figure");
-        galleryFigures.forEach((figure) => {
-          const imageId = figure.getAttribute("data-id");
-          if (imageId === id) {
-            figure.remove();
-          }
-        });
+          // Supprimer l'image correspondante dans #gallery
+          const gallery = document.getElementById("gallery");
+          const galleryFigures = gallery.querySelectorAll("figure");
+          galleryFigures.forEach((figure) => {
+            const imageId = figure.getAttribute("data-id");
+            if (imageId === id) {
+              figure.remove();
+              window.alert("Image supprimée avec succès");
+            }
+          });
+        } else {
+          console.error(`Erreur lors de la suppression de l'image ${id}`);
+        }
       })
       .catch((error) => {
         console.error(`Erreur lors de la suppression de l'image ${id}:`, error);
@@ -163,6 +168,8 @@ window.addEventListener("DOMContentLoaded", function () {
   function setupDeleteImageHandlers() {
     const trashIcons = document.querySelectorAll(".trash-icon");
     trashIcons.forEach((trashIcon) => {
+      trashIcon.setAttribute("type", "button");
+
       trashIcon.addEventListener("click", function () {
         const imageContainer = trashIcon.parentNode;
         const imageId = imageContainer.getAttribute("data-id");
@@ -203,7 +210,6 @@ window.addEventListener("DOMContentLoaded", function () {
   const modalStates = {
     modal1: false,
     modal2: false,
-    // Ajoutez ici d'autres modals si nécessaire
   };
 
   function openModal(modalId) {
@@ -397,9 +403,8 @@ window.addEventListener("DOMContentLoaded", function () {
         .then((response) => response.json())
         .then((data) => {
           const projectGallery = document.getElementById("gallery");
-
           const workElement = document.createElement("figure");
-          workElement.setAttribute("data-category", data.category.id);
+          workElement.setAttribute("data-category", data.categoryId);
           workElement.setAttribute("data-id", data.id);
 
           const imageElement = document.createElement("img");
@@ -412,8 +417,8 @@ window.addEventListener("DOMContentLoaded", function () {
           workElement.appendChild(titleElement);
           projectGallery.appendChild(workElement);
 
-          closeModal("modal2");
           resetModal2();
+          window.alert("L'image a été ajoutée avec succès !");
         })
         .catch((error) => {
           console.error("Erreur lors de l'envoi du formulaire :", error);
