@@ -1,5 +1,4 @@
 window.addEventListener("DOMContentLoaded", function () {
-  const currentDomain = window.location.origin;
   fetch("http://localhost:5678/api/works")
     .then((response) => response.json())
     .then((data) => {
@@ -205,7 +204,32 @@ window.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  function isUserLoggedIn() {
+    const authToken = sessionStorage.getItem("authToken");
+    return authToken !== null && authToken !== "";
+  }
+
+  function updateLoginLink() {
+    const loginLink = document.getElementById("loginLink");
+    if (isUserLoggedIn()) {
+      loginLink.textContent = "logout";
+      loginLink.href = "javascript:void(0);";
+    } else {
+      loginLink.textContent = "login";
+      loginLink.href = "../FrontEnd/log/log.html";
+    }
+
+    loginLink.addEventListener("click", function () {
+      if (isUserLoggedIn()) {
+        sessionStorage.removeItem("authToken");
+        // Rediriger vers la page d'accueil (index.html) après la déconnexion
+        window.location.href = "../FrontEnd/index.html";
+      }
+    });
+  }
+
   modifyEditClass();
+  updateLoginLink();
 
   const modalStates = {
     modal1: false,
