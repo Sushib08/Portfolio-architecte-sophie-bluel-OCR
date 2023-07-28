@@ -117,7 +117,7 @@ window.addEventListener("DOMContentLoaded", function () {
             const imageId = figure.getAttribute("data-id");
             if (imageId === id) {
               figure.remove();
-              window.alert("Image supprimée avec succès");
+              alert("Image supprimée avec succès");
             }
           });
         } else {
@@ -448,8 +448,9 @@ window.addEventListener("DOMContentLoaded", function () {
           workElement.appendChild(titleElement);
           projectGallery.appendChild(workElement);
 
-          resetModal2();
-          window.alert("L'image a été ajoutée avec succès !");
+          closeModal("modal2");
+          openModal("modal1");
+          alert("L'image a été ajoutée avec succès !");
         })
         .catch((error) => {
           console.error("Erreur lors de l'envoi du formulaire :", error);
