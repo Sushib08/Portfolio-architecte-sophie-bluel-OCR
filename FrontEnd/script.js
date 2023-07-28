@@ -403,6 +403,13 @@ window.addEventListener("DOMContentLoaded", function () {
     const inputTitre = document.getElementById("inputTitre");
     const selectCategorie = document.getElementById("selectCategorie");
 
+    // Vérifier si une image a été ajoutée dans le champ frame-img
+    const frameAddImg = document.querySelector(".frame-addImg");
+    if (frameAddImg.innerHTML.trim() === "") {
+      errorMessage.style.display = "block";
+      return; // Arrêter la validation du formulaire si aucune image n'est ajoutée
+    }
+
     if (!fileInput || !inputTitre.value || selectCategorie.value === "") {
       errorMessage.style.display = "block";
     } else {
