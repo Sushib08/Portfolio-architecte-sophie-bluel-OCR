@@ -393,6 +393,55 @@ window.addEventListener("DOMContentLoaded", function () {
 
   populateCategoryOptions();
 
+  function addProjectToModal1(data) {
+    const galleryModal = document.getElementById("gallery-modal");
+    const imageElement = document.createElement("img");
+    const imageUrl = data.imageUrl;
+    const deleteIcon = document.createElement("i");
+    const arrowIcon = document.createElement("i");
+    const editText = document.createElement("div");
+    const imageId = data.id;
+
+    deleteIcon.className = "fas fa-trash-alt trash-icon";
+    editText.textContent = "éditer";
+    editText.classList.add("edit-img");
+
+    imageElement.src = imageUrl;
+
+    const imageContainer = document.createElement("div");
+    imageContainer.classList.add("image-container");
+    imageContainer.setAttribute("data-id", imageId);
+    imageContainer.appendChild(imageElement);
+    imageContainer.appendChild(deleteIcon);
+
+    if (galleryModal.children.length === 0) {
+      arrowIcon.className = "fas fa-arrows-up-down-left-right arrows-icon";
+      imageContainer.appendChild(arrowIcon);
+    }
+
+    imageContainer.appendChild(editText);
+    galleryModal.appendChild(imageContainer);
+    setupDeleteImageHandlers();
+  }
+
+  function addProjectToGallery(data) {
+    const projectGallery = document.getElementById("gallery");
+    const workElement = document.createElement("figure");
+    workElement.setAttribute("data-category", data.categoryId);
+    workElement.setAttribute("data-id", data.id);
+
+    const imageElement = document.createElement("img");
+    imageElement.src = data.imageUrl;
+
+    const titleElement = document.createElement("figcaption");
+    titleElement.textContent = data.title;
+
+    workElement.appendChild(imageElement);
+    workElement.appendChild(titleElement);
+    projectGallery.appendChild(workElement);
+    setupDeleteImageHandlers();
+  }
+
   const validateButton = document.querySelector(".validate");
   const errorMessage = document.getElementById("error-message");
 
@@ -433,20 +482,8 @@ window.addEventListener("DOMContentLoaded", function () {
       fetch("http://localhost:5678/api/works", requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          const projectGallery = document.getElementById("gallery");
-          const workElement = document.createElement("figure");
-          workElement.setAttribute("data-category", data.categoryId);
-          workElement.setAttribute("data-id", data.id);
-
-          const imageElement = document.createElement("img");
-          imageElement.src = data.imageUrl;
-
-          const titleElement = document.createElement("figcaption");
-          titleElement.textContent = data.title;
-
-          workElement.appendChild(imageElement);
-          workElement.appendChild(titleElement);
-          projectGallery.appendChild(workElement);
+          addProjectToModal1(data);
+          addProjectToGallery(data);
 
           closeModal("modal2");
           openModal("modal1");
