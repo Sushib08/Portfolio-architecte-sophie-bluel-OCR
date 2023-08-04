@@ -86,6 +86,138 @@ window.addEventListener("DOMContentLoaded", function () {
       });
     });
 
+  function isUserLoggedIn() {
+    const authToken = sessionStorage.getItem("authToken");
+    return authToken !== null && authToken !== "";
+  }
+
+  function updateLoginLink() {
+    const loginLink = document.getElementById("loginLink");
+    if (isUserLoggedIn()) {
+      loginLink.textContent = "logout";
+      loginLink.href = "javascript:void(0);";
+    } else {
+      loginLink.textContent = "login";
+      loginLink.href = "../FrontEnd/log/log.html";
+    }
+
+    loginLink.addEventListener("click", function () {
+      if (isUserLoggedIn()) {
+        sessionStorage.removeItem("authToken");
+        // Rediriger vers la page d'accueil (index.html) après la déconnexion
+        window.location.href = "../FrontEnd/index.html";
+      }
+    });
+  }
+
+  function modifyEditClass() {
+    const authToken = sessionStorage.getItem("authToken");
+    const editDiv = document.getElementById("edit");
+    const filterDiv = document.getElementById("filter");
+    const btn1Div = document.getElementById("btn1");
+    const btnEdit = document.getElementById("btn-edit");
+
+    if (authToken !== null && authToken !== "") {
+      editDiv.classList.remove("hidden");
+      editDiv.classList.add("edit");
+      btn1Div.classList.remove("hidden");
+      btn1Div.classList.add("btn-edit1");
+      btnEdit.classList.remove("hidden");
+      btnEdit.classList.add("btn-edit");
+      filterDiv.classList.remove("flex-important");
+      filterDiv.classList.add("hidden");
+    } else {
+      editDiv.classList.remove("edit");
+      editDiv.classList.add("hidden");
+      btn1Div.classList.remove("btn-edit1");
+      btn1Div.classList.add("hidden");
+      btnEdit.classList.remove("btn-edit");
+      btnEdit.classList.add("hidden");
+      filterDiv.classList.add("flex-important");
+    }
+  }
+
+  const modalStates = {
+    modal1: false,
+    modal2: false,
+  };
+
+  function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.classList.remove("hidden");
+    modal.classList.add("modal-wrapper");
+    modalStates[modalId] = true;
+  }
+
+  function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.classList.remove("modal-wrapper");
+    modal.classList.add("hidden");
+    modalStates[modalId] = false;
+    if (modalId === "modal2") {
+      resetModal2();
+    }
+  }
+
+  const btnEdit = document.getElementById("btn-edit");
+  btnEdit.addEventListener("click", () => openModal("modal1"));
+  const closeIcon = document.querySelector("#modal1 .close");
+  closeIcon.addEventListener("click", () => closeModal("modal1"));
+
+  const btnAddImg = document.getElementById("btn-add-img");
+  btnAddImg.addEventListener("click", () => openModal("modal2"));
+  const closeIcon2 = document.querySelector("#modal2 .close");
+  closeIcon2.addEventListener("click", () => closeModal("modal2"));
+
+  const arrowLeftIcon = document.querySelector("#modal2 .arrow-left");
+  arrowLeftIcon.addEventListener("click", () => {
+    closeModal("modal2");
+    resetModal2();
+    openModal("modal1");
+  });
+
+  function resetModal2() {
+    const frameAddImg = document.querySelector(".frame-addImg");
+    frameAddImg.innerHTML = `
+        <img src="../FrontEnd/assets/icons/picture-svgrepo-com 1.svg" alt="img" />
+        <button class="btn-addImg">+ Ajouter photo</button>
+        <p class="format">jpg, png : 4mo max</p>
+      `;
+
+    const btnAddImg = document.querySelector(".btn-addImg");
+    const formatParagraph = document.querySelector(".format");
+
+    btnAddImg.style.display = "block";
+    formatParagraph.style.display = "block";
+
+    const inputTitre = document.getElementById("inputTitre");
+    const selectCategorie = document.getElementById("selectCategorie");
+
+    inputTitre.value = "";
+    selectCategorie.value = "";
+
+    const errorMessage = document.getElementById("error-message");
+    errorMessage.style.display = "none";
+  }
+
+  function closeModalOnClickOutside(event) {
+    const modals = ["modal1", "modal2"];
+    modals.forEach((modalId) => {
+      const modal = document.getElementById(modalId);
+      if (
+        !modal.contains(event.target) &&
+        !modal.classList.contains("hidden")
+      ) {
+        closeModal(modalId);
+        if (modalId === "modal2") {
+          resetModal2();
+        }
+      }
+    });
+  }
+
+  window.addEventListener("mousedown", closeModalOnClickOutside);
+
   function deleteImage(id) {
     const token = sessionStorage.getItem("authToken");
 
@@ -177,140 +309,8 @@ window.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  function modifyEditClass() {
-    const authToken = sessionStorage.getItem("authToken");
-    const editDiv = document.getElementById("edit");
-    const filterDiv = document.getElementById("filter");
-    const btn1Div = document.getElementById("btn1");
-    const btnEdit = document.getElementById("btn-edit");
-
-    if (authToken !== null && authToken !== "") {
-      editDiv.classList.remove("hidden");
-      editDiv.classList.add("edit");
-      btn1Div.classList.remove("hidden");
-      btn1Div.classList.add("btn-edit1");
-      btnEdit.classList.remove("hidden");
-      btnEdit.classList.add("btn-edit");
-      filterDiv.classList.remove("flex-important");
-      filterDiv.classList.add("hidden");
-    } else {
-      editDiv.classList.remove("edit");
-      editDiv.classList.add("hidden");
-      btn1Div.classList.remove("btn-edit1");
-      btn1Div.classList.add("hidden");
-      btnEdit.classList.remove("btn-edit");
-      btnEdit.classList.add("hidden");
-      filterDiv.classList.add("flex-important");
-    }
-  }
-
-  function isUserLoggedIn() {
-    const authToken = sessionStorage.getItem("authToken");
-    return authToken !== null && authToken !== "";
-  }
-
-  function updateLoginLink() {
-    const loginLink = document.getElementById("loginLink");
-    if (isUserLoggedIn()) {
-      loginLink.textContent = "logout";
-      loginLink.href = "javascript:void(0);";
-    } else {
-      loginLink.textContent = "login";
-      loginLink.href = "../FrontEnd/log/log.html";
-    }
-
-    loginLink.addEventListener("click", function () {
-      if (isUserLoggedIn()) {
-        sessionStorage.removeItem("authToken");
-        // Rediriger vers la page d'accueil (index.html) après la déconnexion
-        window.location.href = "../FrontEnd/index.html";
-      }
-    });
-  }
-
   modifyEditClass();
   updateLoginLink();
-
-  const modalStates = {
-    modal1: false,
-    modal2: false,
-  };
-
-  function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.classList.remove("hidden");
-    modal.classList.add("modal-wrapper");
-    modalStates[modalId] = true;
-  }
-
-  function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.classList.remove("modal-wrapper");
-    modal.classList.add("hidden");
-    modalStates[modalId] = false;
-    if (modalId === "modal2") {
-      resetModal2();
-    }
-  }
-
-  const btnEdit = document.getElementById("btn-edit");
-  btnEdit.addEventListener("click", () => openModal("modal1"));
-  const closeIcon = document.querySelector("#modal1 .close");
-  closeIcon.addEventListener("click", () => closeModal("modal1"));
-
-  const btnAddImg = document.getElementById("btn-add-img");
-  btnAddImg.addEventListener("click", () => openModal("modal2"));
-  const closeIcon2 = document.querySelector("#modal2 .close");
-  closeIcon2.addEventListener("click", () => closeModal("modal2"));
-
-  const arrowLeftIcon = document.querySelector("#modal2 .arrow-left");
-  arrowLeftIcon.addEventListener("click", () => {
-    closeModal("modal2");
-    resetModal2();
-    openModal("modal1");
-  });
-
-  function resetModal2() {
-    const frameAddImg = document.querySelector(".frame-addImg");
-    frameAddImg.innerHTML = `
-      <img src="../FrontEnd/assets/icons/picture-svgrepo-com 1.svg" alt="img" />
-      <button class="btn-addImg">+ Ajouter photo</button>
-      <p class="format">jpg, png : 4mo max</p>
-    `;
-
-    const btnAddImg = document.querySelector(".btn-addImg");
-    const formatParagraph = document.querySelector(".format");
-
-    btnAddImg.style.display = "block";
-    formatParagraph.style.display = "block";
-
-    const inputTitre = document.getElementById("inputTitre");
-    const selectCategorie = document.getElementById("selectCategorie");
-
-    inputTitre.value = "";
-    selectCategorie.value = "";
-
-    const errorMessage = document.getElementById("error-message");
-    errorMessage.style.display = "none";
-  }
-
-  function closeModalOnClickOutside(event) {
-    const modals = ["modal1", "modal2"];
-    modals.forEach((modalId) => {
-      const modal = document.getElementById(modalId);
-      if (
-        !modal.contains(event.target) &&
-        !modal.classList.contains("hidden")
-      ) {
-        closeModal(modalId);
-        if (modalId === "modal2") {
-          resetModal2();
-        }
-      }
-    });
-  }
-
-  window.addEventListener("mousedown", closeModalOnClickOutside);
 
   document.body.addEventListener("click", function (event) {
     if (event.target.matches(".btn-addImg")) {
